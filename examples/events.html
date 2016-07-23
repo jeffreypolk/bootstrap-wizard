@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Events Demo</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../wizard.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../wizard.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            // initialize wizard
+            $('#wizard').wizard({
+                onSubmit: function () {
+                    $('<div>onSubmit called</div>').appendTo('#EventLog');
+                    $('#wizard').wizard('end', {
+                        info: 'this worked!',
+                        autoClose: true
+                    });
+                },
+                onReset: function () {
+                    $('<div>onReset called</div>').appendTo('#EventLog');
+                },
+                onCancel: function () {
+                    $('<div>onCancel called</div>').appendTo('#EventLog');
+                },
+                onClose: function () {
+                    $('<div>onClose called</div>').appendTo('#EventLog');
+                },
+                onOpen: function () {
+                    $('<div>onOpen called</div>').appendTo('#EventLog');
+                }
+            });
+
+            // open wizard
+            $('#btnOpen').click(function () {
+                $('#EventLog').html('');
+                $('#wizard').wizard('open');
+            });
+        });
+    </script>
+</head>
+<body style="padding:20px;">
+    <button class="btn" id="btnOpen">Open Wizard</button>
+   
+    <!-- Begin wizard -->
+    <div class="wizard" id="wizard">
+
+        <div class="wizard-step" data-title="Step One">
+            This is step one
+        </div>
+
+        <div class="wizard-step" data-title="Step Two">
+            This is step two
+        </div>
+
+        <div class="wizard-step" data-title="Step Three">
+            This is step three
+        </div>
+
+    </div>
+    <!-- End wizard -->
+
+    <div id="EventLog"></div>
+</body>
+</html>

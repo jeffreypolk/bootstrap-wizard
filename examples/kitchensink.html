@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Kitchen Sink Demo</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../wizard.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    <script src="../javascripts/jquery.validate.min.js"></script>
+    <script src="../javascripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../wizard.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            // initialize wizard
+            $('#wizard').wizard({
+                title: 'Custom Title',
+                validators: [{
+                    step: 1,
+                    validate: function () {
+                        if ($('#TextBox2').val() === '') {
+                            $('#wizard').wizard('error', 'You must enter text 2');
+                            return false;
+                        }
+                    }
+                }],
+                onSubmit: function () {
+                    $('<div>onSubmit called</div>').appendTo('#EventLog');
+                    $('#wizard').wizard('end', {
+                        info: 'this is an info message',
+                        warning: 'this is a warning message',
+                        success: 'this is a success message',
+                        error: 'this is an error message',
+                        autoClose: 5000 // close after 5 seconds
+                    });
+                },
+                onReset: function () {
+                    $('<div>onReset called</div>').appendTo('#EventLog');
+                    $('#TextBox1').val('');
+                    $('#TextBox2').val('');
+                },
+                onCancel: function () {
+                    $('<div>onCancel called</div>').appendTo('#EventLog');
+                },
+                onClose: function () {
+                    $('<div>onClose called</div>').appendTo('#EventLog');
+                },
+                onOpen: function () {
+                    $('<div>onOpen called</div>').appendTo('#EventLog');
+                },
+                previousText: 'Custom Previous Text',
+                nextText: 'Custom Next Text',
+                submitText: 'Do Something',
+                showCancel: true,
+                showPrevious: true,
+                showProgress: true,
+                isModal: true,
+                autoOpen: false
+            });
+
+            // open wizard
+            $('#btnOpen').click(function () {
+                $('#EventLog').html('');
+                $('#wizard').wizard('open');
+            });
+        });
+    </script>
+</head>
+<body style="padding:20px;">
+    <button class="btn" id="btnOpen">Open Wizard</button>
+
+    <!-- Begin wizard -->
+    <div class="wizard" id="wizard">
+
+        <div class="wizard-step" data-title="Step One">
+            
+            <form role="form">
+                <!-- this is validated via jQuery and unobtrusive -->
+                <p>Enter text 1</p>
+                <textarea class="form-control" id="TextBox1" name="TextBox1" rows="5" placeholder="Add text" data-val="true" data-val-required="The text field is required."></textarea>
+                <span class="field-validation-valid" data-valmsg-for="TextBox1" data-valmsg-replace="true"></span>
+
+                <!-- this is validated via custom validator -->
+                <p>Enter text 2</p>
+                <textarea class="form-control" id="TextBox2" name="TextBox2" rows="5" placeholder="Add text"></textarea>
+            </form>
+        </div>
+
+        <div class="wizard-step" data-title="Step Two">
+            This is step two
+        </div>
+
+        <div class="wizard-step" data-title="Step Three">
+            This is step three
+        </div>
+
+    </div>
+    <!-- End wizard -->
+
+    <div id="EventLog"></div>
+</body>
+</html>

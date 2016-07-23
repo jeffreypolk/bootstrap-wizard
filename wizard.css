@@ -1,0 +1,19 @@
+﻿
+.wizard {
+    display:none;
+}
+wizard-ok {
+    display:none;
+}
+.wizard-nomodal {
+    box-shadow:none;
+    border:none;
+}
+
+.wizard .modal-header {
+    background-color:#f8f8f8;
+}
+
+.wizard-body {
+    overflow:hidden;
+}
