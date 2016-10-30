@@ -1,4 +1,4 @@
-﻿
+
 
 (function ($) {
 
@@ -61,7 +61,8 @@
                 // if step index matches or 0 (all steps)
                 if (v.step === 0 || v.step === settings.stepIndex) {
                     if ($.isFunction(v.validate)) {
-                        if (v.validate() === false) {
+                        if (v.validate.call(wiz) === false) {
+                        //if (v.validate() === false) {
                             // no bueno
                             return false;
                         }
@@ -76,7 +77,7 @@
     var _move = function (wiz, next) {
 
         var settings = wiz.data(_dataKey);
-
+        
         // special handing on next
         if (next === true) {
 
@@ -88,7 +89,7 @@
             // if final step, submit
             if (settings.stepIndex === settings.stepCount) {
                 if ($.isFunction(settings.onSubmit)) {
-                    settings.onSubmit();
+                    settings.onSubmit.call(wiz);
                 } else {
                     // no submit method, just close
                     _close(wiz);
@@ -149,10 +150,10 @@
         }
         _reset(wiz);
         if ($.isFunction(settings.onReset)) {
-            settings.onReset();
+            settings.onReset.call(wiz);
         }
         if ($.isFunction(settings.onClose)) {
-            settings.onClose();
+            settings.onClose.call(wiz);
         }
         if (settings.isModal === false) {
             wiz.hide();
@@ -163,7 +164,7 @@
         var settings = wiz.data(_dataKey);
         var close = true;
         if ($.isFunction(settings.onCancel)) {
-            if (settings.onCancel() === false) {
+            if (settings.onCancel.call(wiz) === false) {
                 close = false;
             }
         }
@@ -183,7 +184,7 @@
             wiz.show();
         }
         if ($.isFunction(settings.onOpen)) {
-            settings.onOpen();
+            settings.onOpen.call(wiz);
         }
     }
 
@@ -347,6 +348,12 @@
 
                 // commit html to document
                 $(_initMarkup($this, settings)).appendTo($this);
+
+                // move the dialog to the body if it is not already there
+                // dialogs have issues if they aren't a child of the body
+                if (!$this.parent().is('body')) {
+                    $this.appendTo($('body'))
+                }
 
                 if (settings.isModal) {
                     // clean up the modal
