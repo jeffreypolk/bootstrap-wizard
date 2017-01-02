@@ -1,28 +1,30 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>No Modal Demo</title>
+    <title>Simple Demo</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../wizard.css" rel="stylesheet" />
+    <link href="../stylesheets/wizard.css" rel="stylesheet" />
 
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../wizard.js"></script>
+    <script type="text/javascript" src="../javascripts/wizard.js"></script>
 
     <script type="text/javascript">
 
         $(document).ready(function () {
 
             // initialize wizard
-            $('#wizard').wizard({
-                isModal: false,
-                autoOpen: true
-            });
+            $('#wizard').wizard();
 
+            // open wizard
+            $('#btnOpen').click(function () {
+                $('#wizard').wizard('open');
+            });
         });
     </script>
 </head>
-<body>
+<body style="padding:20px;">
+    <button class="btn" id="btnOpen">Open Wizard</button>
 
     <!-- Begin wizard -->
     <div class="wizard" id="wizard">

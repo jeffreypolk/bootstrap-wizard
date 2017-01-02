@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <link rel="stylesheet" type="text/css" href="stylesheets/my.css">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>bootstrap-wizard by jeffreypolk</title>
+</head>
+
+<body>
+    <header>
+        <div class="inner">
+            <h1>bootstrap-wizard</h1>
+            <h2>A wizard built on jQuery and Bootstrap</h2>
+            <a href="https://github.com/jeffreypolk/bootstrap-wizard" class="button"><small>View project on</small> GitHub</a>
+        </div>
+    </header>
+
+    <div id="content-wrapper">
+        <div class="inner clearfix">
+            <section id="main-content">
+                <!-- Overview -->
+                <div>
+                    <h3>
+                        <a id="Overview" class="anchor" href="#Overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>
+                        Overview
+                    </h3>
+                    <p>
+                        Provides an implemenation of a UI wizard built on jQuery and Bootstrap.  It takes care of the plumbing for 
+                        moving back and forth between steps, validation, hooks for key events, etc.
+                    </p>
+                </div>
+
+                <!-- Dependencies -->
+                <div>
+                    <h3>
+                        <a id="Dependencies" class="anchor" href="#Dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>
+                        Dependencies
+                    </h3>
+                    <p>
+                        The project was built on the following.  It does nothing fancy and will probably work with all future versions:
+                        <ul>
+                            <li>jQuery 2.2.4</li>
+                            <li>Bootstrap 3.3.6</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <!-- Setup -->
+                <div>
+                    <h3>
+                        <a id="Setup" class="anchor" href="#Setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>
+                        Setup
+                    </h3>
+                    <p>
+                        The use bootstrap-wizard in your project, include the following:
+                        <ul>
+                            <li>wizard.css</li>
+                            <li>wizard.min.js</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <!-- Markup -->
+                <div>
+                    <h3>
+                        <a id="Markup" class="anchor" href="#Markup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>
+                        Markup
+                    </h3>
+                    <p>
+                        The wizard depends on structured HTML to define the wizard and the steps for it.  The order of the steps presented is defined 
+                        by the order of the divs within the wizard.  The wizard itself is defined by the <span class="code">wizard</span> class 
+                        and each step is defined by the <span class="code">wizard-step</span> class.
+                    </p>
+                    <script src="https://gist.github.com/jeffreypolk/4ed2468cb6e99dd6e391cc688c465f92.js"></script>
+
+                </div>
+
+                <!-- Options -->
+                <div>
+                    <h3>
+                        <a id="Options" class="anchor" href="#Options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>
+                        Options
+                    </h3>
+                    <p>
+                        Automatic initialization based on css class is not supported.  Chances are that every wizard will need to supply some initialization options.
+                        To initialize a wizard, use Javacript passing the options.  The following are the default options:
+                    </p>
+                    <script src="https://gist.github.com/jeffreypolk/1295bd462305d6a45bbb8ef8b7f3f0ed.js"></script>
+
+                    <table class="items">
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Default</td>
+                                <td>Description</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>title</td>
+                                <td>Empty</td>
+                                <td>Displayed as the title of the wizard.  This title can be overridden by step titles if the step has the <span class="code">data-title</span> attribute.</td>
+                            </tr>
+                            <tr>
+                                <td>validators</td>
+                                <td>null</td>
+                                <td>An array of objects used to validate steps.  Each object is <span class="code">{step:1, validation: function(){}}</span>. See <a href="#CustomValidation">Custom Validation</a>.</td>
+                            </tr>
+                            <tr>
+                                <td>onSubmit</td>
+                                <td>null</td>
+                                <td>A function  called when the Submit button is clicked</td>
+                            </tr>
+                            <tr>
+                                <td>onReset</td>
+                                <td>null</td>
+                                <td>A function  called when the wizard is closed or completed.  The purpose of this event is to reset all elements in the wizard.</td>
+                            </tr>
+                            <tr>
+                                <td>onCancel</td>
+                                <td>null</td>
+                                <td>A function  called when the wizard is canceled.  This happens when the Cancel button is clicked, the "X" button in the header is clicked or the Escape key is pressed.</td>
+                            </tr>
+                            <tr>
+                                <td>onClose</td>
+                                <td>null</td>
+                                <td>A function  called when the wizard is closed</td>
+                            </tr>
+                            <tr>
+                                <td>onOpen</td>
+                                <td>null</td>
+                                <td>A function  called when the wizard is opened</td>
+                            </tr>
+                            <tr>
+                                <td>previousText</td>
+                                <td>&lt;&lt; Back</td>
+                                <td>The text of the Previous button</td>
+                            </tr>
+                            <tr>
+                                <td>nextText</td>
+                                <td>Next &gt;&gt;</td>
+                                <td>The text of the Next button</td>
+                            </tr>
+                            <tr>
+                                <td>submitText</td>
+                                <td>Submit</td>
+                                <td>The text of the Submit button</td>
+                            </tr>
+                            <tr>
+                                <td>showCancel</td>
+                                <td>true</td>
+                                <td>A boolean controlling if the Cancel button is shown.  If <span class="code">true</span>, the Cancel button will be displayed, the "X" button will be in the title and the <span class="code">Escape</span> key will cancel the wizard.</td>
+                            </tr>
+                            <tr>
+                                <td>showPrevious</td>
+                                <td>true</td>
+                                <td>A boolean controlling if the Previous button is shown</td>
+                            </tr>
+                            <tr>
+                                <td>showProgress</td>
+                                <td>false</td>
+                                <td>A boolean controlling if a progress bar is shown.  If the wizard contains numerous steps, it may be friendly to display a progress bar to the user.  This uses the bootstrap progress bar. </td>
+                            </tr>
+                            <tr>
+                                <td>isModal</td>
+                                <td>true</td>
+                                <td>A boolean controlling if the wizard is presented as a bootstrap dialog.  If <span class="code">false</span> then the wizard will be presented precisely where it lives in the DOM.</td>
+                            </tr>
+                            <tr>
+                                <td>autoOpen</td>
+                                <td>false</td>
+                                <td>A boolean controlling if the wizard is automatically opened when it is initialized.  Typically this is only <span class="code">true</span> when <span class="code">isModal</span> is <span class="code">false</span>.</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Methods -->
+                <div>
+                    <h3>
+                        <a id="Methods" class="anchor" href="#Methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>
+                        Methods
+                    </h3>
+                    <p>
+                        The wizard is implemented as a jQuery plugin, so methods are called as such:
+                    </p>
+                    <script src="https://gist.github.com/jeffreypolk/95317238e19adf83965e8fa375641d3b.js"></script>
+                    <p>
+                        The following methods are available for a wizard instance:
+                    </p>
+                    <table class="items">
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Arguments</td>
+                                <td>Description</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>open</td>
+                                <td>n/a</td>
+                                <td>Opens the wizard on step one.  This raises the onOpen event.</td>
+                            </tr>
+                            <tr>
+                                <td>close</td>
+                                <td>n/a</td>
+                                <td>Closes the wizard.  This raises the onReset, onClose events.</td>
+                            </tr>
+                            <tr>
+                                <td>info</td>
+                                <td>text</td>
+                                <td>Displays the <span class="code">text</span> with an <span class="code">alert-info</span> css class</td>
+                            </tr>
+                            <tr>
+                                <td>warning</td>
+                                <td>text</td>
+                                <td>Displays the <span class="code">text</span> with an <span class="code">alert-warning</span> css class</td>
+                            </tr>
+                            <tr>
+                                <td>success</td>
+                                <td>text</td>
+                                <td>Displays the <span class="code">text</span> with an <span class="code">alert-success</span> css class</td>
+                            </tr>
+                            <tr>
+                                <td>error</td>
+                                <td>text</td>
+                                <td>Displays the <span class="code">text</span> with an <span class="code">alert-danger</span> css class</td>
+                            </tr>
+
+                            <tr>
+                                <td>end</td>
+                                <td>options</td>
+                                <td>This method is meant to be called at the end of the <span class="code">onSubmit</span> event.  <br/>The <span class="code">
+                                    options</span> is an object:<br/><span class="code">{info:'', warning:'', success:'', error:'', autoClose:true/false/integer}</span><br />
+                                    The info/warning/success/error will control the messages displayed.  The <span class="code">autoClose</span> controls if the wizard is automatically closed.
+                                    If <span class="code">false</span>, it is not closed.  If <span class="code">true</span>, it is closed after two seconds.  
+                                    If an <span class="code">integer</span> is specified, it will close after that number of milliseconds.
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Validation -->
+                <div>
+                    <h3>
+                        <a id="Validation" class="anchor" href="#Validation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>
+                        Validation
+                    </h3>
+                    <p>
+                        Each step of a wizard can be validated before moving onto the next step.  There are two mechanisms for validation:
+                        <ul><li>Form validation</li><li>Custom validation</li></ul>
+                    </p>
+                    <h4>Form Validation</h4>
+                    <p>
+                        If the step contains a <span class="code">form</span> element, the wizard will attempt to validate it.  There are numerous plugins
+                        out there for form validation.  The wizard is not dependent on any specific implementation.  It will attempt to call a <span class="code">valid</span> method
+                        and a <span class="code">validate</span> method on the form object if they exist.  If either method exists and returns <span class="code">false</span>, 
+                        the wizard will not advance to the next step.  The wizard assumes the validation implementation takes care of updating the UI with errors.
+                    </p>
+                    <h4>
+                        <a id="CustomValidation" class="anchor" href="#CustomValidation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>
+                        Custom Validation
+                    </h4>
+                    <p>
+                        You can supply your own custom validation through the <span class="code">validators</span> option.  This takes an array of objects.
+                        The first property (<span class="code">step</span>) is a 1-based index of the step it belongs to. 
+                        The second property (<span class="code">validate</span>) is a function that will be called when Next is clicked on that step.  
+                        If it is the last step, it will be called when Submit is clicked.
+                    </p>
+                    <p>
+                        The wizard looks for a return value of <span class="code">false</span> from the <span class="code">validate</span> function.  Any other value
+                        is assumed to mean success and the wizard will move onto the next step.  If the wizard receives <span class="code">false</span>, it will remain 
+                        on the current step.  The custom validator is responsible to provide feedback to the user if there are validation errors.  In the example below, 
+                        the validator is writing the error to the wizard UI via the <span class="code">error</span> method.
+                    </p>
+                    <script src="https://gist.github.com/jeffreypolk/d69ceb1caf3eda6a4f7d155710f8d560.js"></script>
+                </div>
+
+                <!-- Examples -->
+                <div>
+                    <h3>
+                        <a id="Examples" class="anchor" href="#Examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>
+                        Examples
+                    </h3>
+                    <p>
+                        <a href="examples/simple.html" target="_blank">Simple</a> shows the basic setup
+                    </p>
+                    <p>
+                        <a href="examples/events.html" target="_blank">Events</a> shows all event hooks
+                    </p>
+                    <p>
+                        <a href="examples/nomodal.html" target="_blank">No Modal</a> shows the wizard without using modal dialogs
+                    </p>
+                    <p>
+                        <a href="examples/kitchensink.html" target="_blank">Kitchen Sink</a> shows just about everything you can do with the wizard
+                    </p>
+                </div>
+            </section>
+
+            <aside id="sidebar">
+                <a href="https://github.com/jeffreypolk/bootstrap-wizard/zipball/master" class="button">
+                    <small>Download</small>
+                    .zip file
+                </a>
+                <a href="https://github.com/jeffreypolk/bootstrap-wizard/tarball/master" class="button">
+                    <small>Download</small>
+                    .tar.gz file
+                </a>
+
+                <p class="repo-owner"><a href="https://github.com/jeffreypolk/bootstrap-wizard"></a> is maintained by <a href="https://github.com/jeffreypolk">jeffreypolk</a>.</p>
+
+                <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+            </aside>
+        </div>
+    </div>
+
+
+</body>
+</html>

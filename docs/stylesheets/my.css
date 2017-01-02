@@ -1,0 +1,14 @@
+﻿.code {
+    font-family:'Courier New';
+    font-style:normal;
+}
+
+.items thead tr td {
+    background-color:#dddddd;
+    font-weight:bold;
+}
+.items td {
+    text-align:left;
+    padding:5px;
+    min-width:75px;
+}
