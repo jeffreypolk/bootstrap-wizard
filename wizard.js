@@ -1,4 +1,4 @@
-
+﻿
 
 (function ($) {
 
@@ -75,7 +75,7 @@
     }
 
     var _move = function (wiz, next) {
-
+        //debugger;
         var settings = wiz.data(_dataKey);
         
         // special handing on next
@@ -130,6 +130,8 @@
             if (nextIndex === 1) {
                 //we're at the beginning
                 settings.prevButton.prop('disabled', true);
+                //set next to standard text
+                settings.nextButton.html(settings.nextText);
             } else if (nextIndex === settings.stepCount) {
                 //we're on the last step, switch to submit text
                 settings.nextButton.html(settings.submitText);
@@ -157,6 +159,16 @@
         }
         if (settings.isModal === false) {
             wiz.hide();
+        }
+    }
+
+    var _submit = function (wiz) {
+        var settings = wiz.data(_dataKey);
+        if ($.isFunction(settings.onSubmit)) {
+            settings.onSubmit.call(wiz);
+        } else {
+            // no submit method, just close
+            _close(wiz);
         }
     }
 
@@ -236,7 +248,7 @@
         }
         html.push('<button type="button" class="btn btn-primary wizard-next">', settings.nextText, '</button>');
         if (settings.showCancel === true) {
-            html.push('<button type="button" class="btn btn-default wizard-cancel">Cancel</button>');
+            html.push('<button type="button" class="btn btn-default wizard-cancel">' + settings.cancelText + '</button>');
         }
         html.push('<button type="button" class="btn btn-primary wizard-ok">OK</button>');
         
@@ -281,6 +293,9 @@
 
         // hide progress
         wiz.find('.progress').hide();
+
+        // hide messagges
+        _hideMessages(wiz);
 
         // show messages
         if (options.info) _showMessage(wiz, 'info', options.info);
@@ -335,6 +350,7 @@
                 previousText: '<< Back',
                 nextText: 'Next >>',
                 submitText: 'Submit',
+                cancelText: 'Cancel',
                 showCancel: true,
                 showPrevious: true,
                 showProgress: false,
@@ -433,6 +449,12 @@
         close: function () {
             return this.each(function () {
                 _close($(this));
+            });
+        },
+
+        submit: function () {
+            return this.each(function () {
+                _submit($(this));
             });
         },
 
